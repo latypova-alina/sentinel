@@ -17,7 +17,6 @@ class UserAPI < Grape::API
     end
 
     post "create" do
-      byebug
       user_params = params[:user]
       user = User.create(name: user_params[:name], nickname: user_params[:nickname], user_avatar: user_params[:user_avatar])
       user.save
