@@ -1,7 +1,7 @@
 class UserAPI < Grape::API
   resource :users do
-    desc "List all users"
 
+    desc "List all users"
     get "all" do
       users = User.all
       present users, with: Entities::User
