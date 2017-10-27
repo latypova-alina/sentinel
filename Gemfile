@@ -22,6 +22,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'httparty'
   gem 'grape'
   gem 'grape-entity'
   gem 'web-console', '>= 3.3.0'
