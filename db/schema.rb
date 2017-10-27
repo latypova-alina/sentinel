@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20171027135327) do
     t.string "name"
     t.string "token"
     t.integer "user_id"
-    t.boolean "is_returned"
+    t.boolean "is_returned", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

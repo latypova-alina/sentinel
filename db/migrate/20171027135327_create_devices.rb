@@ -4,7 +4,7 @@ class CreateDevices < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :token
       t.integer :user_id
-      t.boolean :is_returned
+      t.boolean :is_returned, default: true
 
       t.timestamps
     end
