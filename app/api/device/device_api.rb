@@ -11,7 +11,7 @@ class DeviceAPI < Grape::API
     params do
       requires :device, type: Hash do
         requires :name, type: String
-        optional :title, type: String
+        optional :token, type: String
         optional :last_user, type: String
         optional :is_returned, type: Boolean
       end
