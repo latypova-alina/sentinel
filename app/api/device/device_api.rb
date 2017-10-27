@@ -74,7 +74,7 @@ class DeviceAPI < Grape::API
       ios = Rpush::Apns::Notification.new
       ios.app = app
       ios.device_token = params[:token]
-      ios.data = { type: params[:type] }
+      ios.alert = "nu provetik"
       if ios.save!
         present status 200
       else
