@@ -3,8 +3,8 @@ class CreateDevices < ActiveRecord::Migration[5.1]
     create_table :devices do |t|
       t.string :name
       t.string :token
-      t.user_id :integer
-      is_returned :boolean
+      t.integer :user_id
+      t.boolean :is_returned
 
       t.timestamps
     end
