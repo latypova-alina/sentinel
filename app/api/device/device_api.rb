@@ -100,7 +100,7 @@ class DeviceAPI < Grape::API
       end
       ios = Rpush::Apns::Notification.new
       ios.app = app
-      ios.device_token = Device.find_by(uid: device_uid).token
+      ios.device_token = Device.find_by(uid: params[:device_uid]).token
       ios.data = { type: "call" }
       if ios.save!
         present status 200
