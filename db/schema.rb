@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20171027150659) do
     t.boolean "is_returned", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "uid"
+    t.string "uid"
   end
 
   create_table "users", force: :cascade do |t|

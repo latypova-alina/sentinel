@@ -1,5 +1,5 @@
 class AddUidToDevices < ActiveRecord::Migration[5.1]
   def change
-    add_column :devices, :uid, :integer
+    add_column :devices, :uid, :string
   end
 end
