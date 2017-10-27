@@ -1,5 +1,12 @@
 class DeviceAPI < Grape::API
   resource :devices do
+
+    desc "List all devices"
+    get "all" do
+      devices = Device.all
+      present devices, with: Entities::Device
+    end
+
     desc "Create new device"
     params do
       requires :device, type: Hash do
@@ -14,7 +21,6 @@ class DeviceAPI < Grape::API
       device_params = params[:device]
       device = Device.find_by(name: device_params[:name])
       if device.nil?
-        byebug
         device = Device.create(name: device_params[:name], token: device_params[:token], user_id: device_params[:last_user])
       else
         device.update_attributes(token: device_params[:token], user_id: device_params[:last_user])

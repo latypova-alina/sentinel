@@ -1,8 +1,14 @@
 module Entities
   class User < Grape::Entity
-    format_with(:iso_timestamp) { |dt| dt.iso8601 }
     expose :name
     expose :nickname
     expose :user_avatar
+  end
+
+  class Device < Grape::Entity
+    expose :name
+    expose :token
+    expose :user, using: Entities::User
+    expose :is_returned
   end
 end
