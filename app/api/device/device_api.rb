@@ -31,25 +31,25 @@ class DeviceAPI < Grape::API
 
     desc "Take device"
     params do
-      requires :device_id, type: String
+      requires :device_uid, type: String
       requires :user_id, type: String
     end
 
     post "take" do
       byebug
-      device = Device.find_by(uid: params[:device_id])
+      device = Device.find_by(uid: params[:device_uid])
       device.update_attributes(user_id: params[:user_id], is_returned: false)
       present status:200 if device.save
     end
 
     desc "Return device"
     params do
-      requires :device_id, type: String
+      requires :device_uid, type: String
       requires :user_id, type: String
     end
 
     post "return" do
-      device = Device.find_by(uid: params[:device_id])
+      device = Device.find_by(uid: params[:device_uid])
       device.update_attributes(user_id: params[:user_id], is_returned: true)
       present status:200 if device.save
     end
