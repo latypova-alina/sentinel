@@ -36,7 +36,6 @@ class DeviceAPI < Grape::API
     end
 
     post "take" do
-      byebug
       device = Device.find_by(uid: params[:device_uid])
       device.update_attributes(user_id: params[:user_id], is_returned: false)
       present status:200 if device.save
@@ -60,7 +59,7 @@ class DeviceAPI < Grape::API
       requires :type, type: String
     end
 
-    get "notify" do
+    post "notify" do
       app = Rpush::Apns::App.find_by_name("sentinel-api3")
       if app.nil?
         app = Rpush::Apns::App.new
@@ -88,7 +87,7 @@ class DeviceAPI < Grape::API
       optional :display_name, type: String
     end
 
-    get "call" do
+    post "call" do
       app = Rpush::Apns::App.find_by_name("sentinel-api3")
       if app.nil?
         app = Rpush::Apns::App.new
