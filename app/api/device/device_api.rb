@@ -20,11 +20,11 @@ class DeviceAPI < Grape::API
 
     post "create" do
       device_params = params[:device]
-      device = Device.find_by(name: device_params[:name])
+      device = Device.find_by(name: device_params[:uid])
       if device.nil?
         device = Device.create(name: device_params[:name], uid: device_params[:uid], token: device_params[:token], user_id: device_params[:last_user])
       else
-        device.update_attributes(token: device_params[:token], uid: device_params[:uid], user_id: device_params[:last_user])
+        device.update_attributes(name: device_params[:name], token: device_params[:token], user_id: device_params[:last_user])
       end
       present status: 200 if device.save
     end

@@ -7,6 +7,7 @@ module Entities
 
   class Device < Grape::Entity
     expose :name
+    expose :uid
     expose :token
     expose :user, using: Entities::User
     expose :is_returned
