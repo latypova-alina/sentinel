@@ -67,7 +67,7 @@ class DeviceAPI < Grape::API
         app.name = "sentinel-api3"
         app.certificate = File.read("config/apns.pem")
         app.password = ENV.fetch("CERTIFICATE_PASSWORD")
-        # app.environment = "production"
+        app.environment = "production"
         app.connections = 1
         app.save!
       end
@@ -95,7 +95,7 @@ class DeviceAPI < Grape::API
         app.name = "sentinel-api3"
         app.certificate = File.read("config/apns.pem")
         app.password = ENV.fetch("CERTIFICATE_PASSWORD")
-        # app.environment = "production"
+        app.environment = "production"
         app.connections = 1
         app.save!
       end
