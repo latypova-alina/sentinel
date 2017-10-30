@@ -61,10 +61,10 @@ class DeviceAPI < Grape::API
     end
 
     get "notify" do
-      app = Rpush::Apns::App.find_by_name("sentinel-api")
+      app = Rpush::Apns::App.find_by_name("sentinel-api2")
       if app.nil?
         app = Rpush::Apns::App.new
-        app.name = "sentinel-api"
+        app.name = "sentinel-api2"
         app.certificate = File.read("config/apns.pem")
         app.password = ENV.fetch("CERTIFICATE_PASSWORD")
         app.environment = "production"
@@ -88,13 +88,13 @@ class DeviceAPI < Grape::API
     end
 
     get "call" do
-      app = Rpush::Apns::App.find_by_name("sentinel-api")
+      app = Rpush::Apns::App.find_by_name("sentinel-api2")
       if app.nil?
         app = Rpush::Apns::App.new
-        app.name = "sentinel-api"
+        app.name = "sentinel-api2"
         app.certificate = File.read("config/apns.pem")
         app.password = ENV.fetch("CERTIFICATE_PASSWORD")
-        app.environment = "development"
+        app.environment = "production"
         app.connections = 1
         app.save!
       end
