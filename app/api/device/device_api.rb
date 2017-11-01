@@ -113,15 +113,14 @@ class DeviceAPI < Grape::API
         app.name = "sentinel-api3"
         app.certificate = File.read("config/apns.pem")
         app.password = ENV.fetch("CERTIFICATE_PASSWORD")
-        app.environment = "development"
+        app.environment = "production"
         app.connections = 1
         app.save!
       end
       ios = Rpush::Apns::Notification.new
       ios.app = app
       ios.device_token = Device.find_by(uid: params[:uid]).apn_token
-      # ios.data = { type: "call", displayName: params[:display_name] }
-      ios.alert = "Provetiki"
+      ios.data = { type: "call", displayName: params[:display_name] }
       if ios.save!
         present status 200
       else
