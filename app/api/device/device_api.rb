@@ -119,7 +119,7 @@ class DeviceAPI < Grape::API
       end
       ios = Rpush::Apns::Notification.new
       ios.app = app
-      ios.device_token = Device.find_by(uid: params[:uid]).token
+      ios.device_token = Device.find_by(uid: params[:uid]).apn_token
       # ios.data = { type: "call", displayName: params[:display_name] }
       ios.alert = "Provetiki"
       if ios.save!
