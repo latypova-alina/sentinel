@@ -11,7 +11,6 @@ class DeviceAPI < Grape::API
     params do
       requires :uid, type: String
     end
-
     get "/:uid" do
       device = Device.find_by(uid: params[:uid])
       present device, with: Entities::Device
@@ -25,7 +24,6 @@ class DeviceAPI < Grape::API
         requires :iid, type: String
       end
     end
-
     post "create" do
       device_params = params[:device]
       device = Device.find_by(uid: device_params[:uid])
@@ -37,12 +35,22 @@ class DeviceAPI < Grape::API
       present status: 200 if device.save
     end
 
+    desc "Update apn_token"
+    params do
+      requires :uid, type: String
+      requires :token, type: String
+    end
+    post "/:uid/apn_token" do
+      device = Device.find_by(uid: params[:device_uid])
+      device.update_attributes(token: params[:token])
+      present status: 200 if device.save
+    end
+
     desc "Take device"
     params do
       requires :device_uid, type: String
       requires :user_id, type: String
     end
-
     post "take" do
       device = Device.find_by(uid: params[:device_uid])
       device.update_attributes(user_id: params[:user_id], is_returned: false)
@@ -54,7 +62,6 @@ class DeviceAPI < Grape::API
       requires :device_uid, type: String
       requires :user_id, type: String
     end
-
     post "return" do
       device = Device.find_by(uid: params[:device_uid])
       device.update_attributes(user_id: params[:user_id], is_returned: true)
@@ -66,7 +73,6 @@ class DeviceAPI < Grape::API
       requires :token, type: String
       requires :type, type: String
     end
-
     post "notify" do
       app = Rpush::Apns::App.find_by_name("sentinel-api3")
       if app.nil?
@@ -94,7 +100,6 @@ class DeviceAPI < Grape::API
       requires :device_uid, type: String
       optional :display_name, type: String
     end
-
     post "call" do
       app = Rpush::Apns::App.find_by_name("sentinel-api3")
       if app.nil?
