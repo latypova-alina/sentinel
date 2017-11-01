@@ -6,7 +6,7 @@ module Entities
   end
 
   class Device < Grape::Entity
-    expose :name
+    expose :title
     expose :uid
     expose :token
     expose :user, using: Entities::User
