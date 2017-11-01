@@ -35,11 +35,11 @@ class DeviceAPI < Grape::API
     desc "Update apn_token"
     params do
       requires :uid, type: String
-      requires :token, type: String
+      requires :apn_token, type: String
     end
     post "/apn_token" do
       device = Device.find_by(uid: params[:uid])
-      device.update_attributes(token: params[:token])
+      device.update_attributes(apn_token: params[:apn_token])
       present status: 200 if device.save
     end
 
@@ -49,7 +49,7 @@ class DeviceAPI < Grape::API
     end
     delete "/apn_token" do
       device = Device.find_by(uid: params[:uid])
-      device.update_attributes(token: nil)
+      device.update_attributes(apn_token: nil)
       present status: 200 if device.save
     end
 
