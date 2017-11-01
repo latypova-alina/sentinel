@@ -41,7 +41,7 @@ class DeviceAPI < Grape::API
       requires :token, type: String
     end
     post "/:uid/apn_token" do
-      device = Device.find_by(uid: params[:device_uid])
+      device = Device.find_by(uid: params[:uid])
       device.update_attributes(token: params[:token])
       present status: 200 if device.save
     end
@@ -51,30 +51,29 @@ class DeviceAPI < Grape::API
       requires :uid, type: String
     end
     delete ":/uid/apn_token" do
-      device = Device.find_by(uid: params[:device_uid])
+      device = Device.find_by(uid: params[:uid])
       device.update_attributes(token: nil)
       present status: 200 if device.save
     end
 
     desc "Take device"
     params do
-      requires :device_uid, type: String
+      requires :uid, type: String
       requires :user_id, type: String
     end
     post "take" do
-      device = Device.find_by(uid: params[:device_uid])
+      device = Device.find_by(uid: params[:uid])
       device.update_attributes(user_id: params[:user_id], is_returned: false)
       present status:200 if device.save
     end
 
     desc "Return device"
     params do
-      requires :device_uid, type: String
-      requires :user_id, type: String
+      requires :uid, type: String
     end
     post "return" do
-      device = Device.find_by(uid: params[:device_uid])
-      device.update_attributes(user_id: params[:user_id], is_returned: true)
+      device = Device.find_by(uid: params[:uid])
+      device.update_attributes(user_id: nil, is_returned: true)
       present status:200 if device.save
     end
 
@@ -107,7 +106,7 @@ class DeviceAPI < Grape::API
 
     desc "Send call notification"
     params do
-      requires :device_uid, type: String
+      requires :uid, type: String
       optional :display_name, type: String
     end
     post "call" do
@@ -123,7 +122,7 @@ class DeviceAPI < Grape::API
       end
       ios = Rpush::Apns::Notification.new
       ios.app = app
-      ios.device_token = Device.find_by(uid: params[:device_uid]).token
+      ios.device_token = Device.find_by(uid: params[:uid]).token
       # ios.data = { type: "call", displayName: params[:display_name] }
       ios.alert = "Provetiki"
       if ios.save!
