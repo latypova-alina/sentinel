@@ -46,6 +46,16 @@ class DeviceAPI < Grape::API
       present status: 200 if device.save
     end
 
+    desc "Delete apn_token"
+    params do
+      requires :uid, type: String
+    end
+    delete ":/uid/apn_token" do
+      device = Device.find_by(uid: params[:device_uid])
+      device.update_attributes(token: nil)
+      present status: 200 if device.save
+    end
+
     desc "Take device"
     params do
       requires :device_uid, type: String
