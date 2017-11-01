@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101131002) do
+ActiveRecord::Schema.define(version: 20171101132551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "devices", force: :cascade do |t|
     t.string "title"
-    t.string "token"
+    t.string "uid"
+    t.string "iid"
+    t.string "apn_token"
     t.integer "user_id"
     t.boolean "is_returned", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "uid"
   end
 
   create_table "rpush_apps", force: :cascade do |t|
