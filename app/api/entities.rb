@@ -1,6 +1,7 @@
 module Entities
   class User < Grape::Entity
     expose :id
+    expose :uid
     expose :name
     expose :nickname
     expose :user_avatar
