@@ -23,5 +23,15 @@ class UserAPI < Grape::API
       end
       present user, with: Entities::User if user.save
     end
+
+    desc "Delete user"
+    params do
+      requires :uid, type: String
+    end
+    delete do
+      User.find_by(uid: params[:uid]).delete
+      present status:200
+    end
+
   end
 end
