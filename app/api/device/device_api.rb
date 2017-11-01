@@ -24,7 +24,7 @@ class DeviceAPI < Grape::API
         requires :iid, type: String
       end
     end
-    post "create" do
+    post do
       device_params = params[:device]
       device = Device.find_by(uid: device_params[:uid])
       if device.nil?
