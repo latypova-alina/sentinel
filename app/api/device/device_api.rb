@@ -107,21 +107,22 @@ class DeviceAPI < Grape::API
       optional :display_name, type: String
     end
     post "call" do
-      app = Rpush::Apns::App.find_by_name("Sentinel")
+      app = Rpush::Apns::App.find_by_name("Sentinel1")
       if app.nil?
         app = Rpush::Apns::App.new
-        app.name = "Sentinel"
+        app.name = "Sentinel1"
         app.certificate = File.read("config/apns.pem")
         app.password = ENV.fetch("CERTIFICATE_PASSWORD")
-        app.environment = "production"
+        app.environment = "development"
         app.connections = 1
         app.save!
       end
       ios = Rpush::Apns::Notification.new
       ios.app = app
       ios.device_token = Device.find_by(uid: params[:uid]).apn_token
-      # ios.data = { type: "call", displayName: params[:display_name] }
+      ios.data = { type: "call", displayName: params[:display_name] }
       ios.alert = "Call"
+      ios.save!
       if ios.save!
         present status 200
       else
