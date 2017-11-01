@@ -7,6 +7,15 @@ class DeviceAPI < Grape::API
       present devices, with: Entities::Device
     end
 
+    desc "Show device"
+    params do
+      requires :uid, type: String
+    end
+
+    get "devices/:uid" do
+      present device, with: Entities::Device
+    end
+
     desc "Create new device"
     params do
       requires :device, type: Hash do
