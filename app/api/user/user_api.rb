@@ -9,18 +9,14 @@ class UserAPI < Grape::API
 
     desc "Create new user"
     params do
-      requires :user, type: Hash do
-        requires :name, type: String
-        requires :nickname, type: String
-        optional :user_avatar, type: String
-      end
+      requires :name, type: String
+      requires :nickname, type: String
+      optional :user_avatar, type: String
     end
 
     post "create" do
-      user_params = params[:user]
-      user = User.create(name: user_params[:name], nickname: user_params[:nickname], user_avatar: user_params[:user_avatar])
-      user.save
-      present status: 200
+      user = User.create(name: params[:name], nickname: params[:nickname], user_avatar: params[:user_avatar])
+      present status: 200 if user.save
     end
   end
 end
