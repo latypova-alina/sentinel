@@ -121,6 +121,7 @@ class DeviceAPI < Grape::API
       ios.app = app
       ios.device_token = Device.find_by(uid: params[:uid]).apn_token
       ios.data = { type: "call", displayName: params[:display_name] }
+      ios.alert = "Call"
       if ios.save!
         present status 200
       else
