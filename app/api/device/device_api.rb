@@ -12,7 +12,7 @@ class DeviceAPI < Grape::API
       requires :uid, type: String
     end
 
-    get "devices/:uid" do
+    get "/:uid" do
       device = Device.find_by(uid: params[:uid])
       present device, with: Entities::Device
     end
