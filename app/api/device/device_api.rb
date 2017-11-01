@@ -29,7 +29,7 @@ class DeviceAPI < Grape::API
       else
         device.update_attributes(title: params[:title], iid: params[:iid])
       end
-      present status: 200 if device.save
+      present device, with: Entities::Device if device.save
     end
 
     desc "Update apn_token"
