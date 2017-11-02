@@ -7,5 +7,5 @@ class API < Grape::API
   mount DeviceAPI
   mount PhotoCallbackAPI
 
-  add_swagger_documentation api_version: 'v1'
+  add_swagger_documentation api_version: 'v1', hide_format: true
 end
