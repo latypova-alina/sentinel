@@ -18,7 +18,7 @@ gem 'grape'
 gem 'grape-entity'
 gem 'rpush'
 gem 'dotenv-rails'
-gem 'swagger-docs'
+gem 'grape-swagger', github: "tim-vandecasteele/grape-swagger"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
