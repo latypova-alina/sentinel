@@ -21,7 +21,7 @@ class UserAPI < Grape::API
       else
         user.update_attributes(name: params[:name], nickname: params[:nickname], user_avatar: params[:user_avatar])
       end
-      present status:200 if user.save
+      present status:200 if user.save!
     end
 
     desc "Delete user"
