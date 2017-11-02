@@ -1,0 +1,13 @@
+HTTParty.post("http://localhost:3000/api/v1/users/create", query: {"user" => {"name" => "123", nickname: "123"}}).body
+
+HTTParty.post("http://localhost:3000/api/v1/devices/create", query: {"device" => {"name" => "123", "uid": "3245", "token": "123", "last_user": 1, "is_returned": true}}).body
+
+HTTParty.post("https://sentinel-api.herokuapp.com/api/v1/devices/create", , query: {"device" => {"name" => "123", "token": "123", "last_user": 1, "is_returned": true}}).body
+
+HTTParty.get("https://sentinel-api.herokuapp.com/api/v1/devices/notify", query: {"type" => "call", "token": "0dfea0e1624f470a67bec6d2c05b13e9215de87e896245e16c17b99985234944"}).body
+
+
+HTTParty.post("http://localhost:3000/api/v1/devices/return", query: {"user_id" => "2", "device_id" => "123sdf"}).body
+
+HTTParty.get("http://localhost:3000/api/v1/devices/notify", query: {"type" => "call", "token" => "123sdf"}).body
+
