@@ -102,5 +102,35 @@ class DeviceAPI < Grape::API
         present status 400
       end
     end
+
+    desc "Send call notification by iid"
+    params do
+      requires :iid, type: String
+      optional :display_name, type: String
+    end
+    post "call_by_iid" do
+      app = Rpush::Apns::App.find_by_name("Sentinel1")
+      if app.nil?
+        app = Rpush::Apns::App.new
+        app.name = "Sentinel1"
+        app.certificate = File.read("config/apns.pem")
+        app.password = ENV.fetch("CERTIFICATE_PASSWORD")
+        app.environment = "development"
+        app.connections = 1
+        app.save!
+      end
+      ios = Rpush::Apns::Notification.new
+      ios.app = app
+      ios.device_token = Device.find_by(iid: params[:iid]).apn_token
+      ios.data = { type: "call", displayName: params[:display_name] }
+      ios.alert = "Call"
+      ios.save!
+      if ios.save!
+        present status 200
+      else
+        present status 400
+      end
+    end
+
   end
 end
