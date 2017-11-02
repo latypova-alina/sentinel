@@ -5,5 +5,7 @@ class API < Grape::API
 
   mount UserAPI
   mount DeviceAPI
+  mount PhotoCallbackAPI
+
   add_swagger_documentation api_version: 'v1', hide_format: true
 end

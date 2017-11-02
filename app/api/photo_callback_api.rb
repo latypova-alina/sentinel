@@ -1,4 +1,4 @@
-class DeviceAPI < Grape::API
+class PhotoCallbackAPI < Grape::API
 
   desc "Send photo callback notification"
   params do
