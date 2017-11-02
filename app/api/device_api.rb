@@ -74,33 +74,6 @@ class DeviceAPI < Grape::API
       present status:200 if device.save
     end
 
-    desc "Send notification"
-    params do
-      requires :token, type: String
-      requires :type, type: String
-    end
-    post "notify" do
-      app = Rpush::Apns::App.find_by_name("sentinel-api3")
-      if app.nil?
-        app = Rpush::Apns::App.new
-        app.name = "sentinel-api3"
-        app.certificate = File.read("config/apns.pem")
-        app.password = ENV.fetch("CERTIFICATE_PASSWORD")
-        app.environment = "development"
-        app.connections = 1
-        app.save!
-      end
-      ios = Rpush::Apns::Notification.new
-      ios.app = app
-      ios.device_token = params[:token]
-      ios.alert = "nu provetik"
-      if ios.save!
-        present status 200
-      else
-        present status 400
-      end
-    end
-
     desc "Send call notification"
     params do
       requires :uid, type: String
