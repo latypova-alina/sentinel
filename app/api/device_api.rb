@@ -56,11 +56,11 @@ class DeviceAPI < Grape::API
     desc "Take device"
     params do
       requires :uid, type: String
-      requires :user_id, type: String
+      requires :user_uid, type: String
     end
     post "/holder" do
       device = Device.find_by(uid: params[:uid])
-      device.update_attributes(user_id: params[:user_id], is_returned: false)
+      device.update_attributes(user_id: User.find_by(uid: params[:user_uid]).id, is_returned: false)
       present status: 200 if device.save
     end
 
