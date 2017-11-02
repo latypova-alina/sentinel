@@ -33,5 +33,14 @@ class UserAPI < Grape::API
       present status:200
     end
 
+    desc "Show user"
+    params do
+      requires :uid, type: String
+    end
+    get do
+      user = User.find_by(uid: params[:uid])
+      present user, with: Entities::User unless user.nil?
+    end
+
   end
 end
