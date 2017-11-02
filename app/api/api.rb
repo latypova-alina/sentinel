@@ -1,6 +1,6 @@
 class API < Grape::API
   prefix 'api'
-  format :json
+  default_format :json
   version 'v1', using: :path
 
   mount UserAPI
